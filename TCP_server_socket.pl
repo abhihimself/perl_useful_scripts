@@ -2,6 +2,7 @@
 #tcpserver.pl
 use strict;
 use IO::Socket::INET;
+use IO::Select;
 
 # flush after every write
 $| = 1;
@@ -26,13 +27,14 @@ while(1){
 	 $peer_port=$client_socket->peerport();
 	 
 	 print "Accepted New Client Connection From : $peer_address, $peer_port\n ";
-	 
+	# sleep(5);
 	my $data_to_send="hello Data from server";
 	$client_socket->send("$data_to_send");
 	 
 	 my $data_to_receive;
 	 $client_socket->recv($data_to_receive, 1024);
-	 print "Received from $data_to_receive at time time()","\n"	
+	 my $current_time=localtime();
+	 print "Received from $data_to_receive at time $current_time","\n"	
 
 }
 $socket->close();

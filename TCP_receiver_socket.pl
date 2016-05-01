@@ -11,7 +11,7 @@ my ($peer_address, $peer_port);
 
 $socket = IO::Socket::INET->new(
 LocalHost => '127.0.0.1',
-LocalPort => '8183',
+LocalPort => '8185',
 PeerHost => '127.0.0.1',
 PeerPort => '8080',
 Proto => 'tcp'
@@ -19,12 +19,16 @@ Proto => 'tcp'
 #Reuse => 1
 
 ) or die("Unable to connect to server socket $!");
-
-$socket->recv($data,1024);
-print "Data received at client socket: $data","\n";
-
-my $client_data= "HELLO Data from client at time time()";
+#sleep(5);
+my $client_data= "HELLO Data from client";
 $socket->send($client_data);
 
-sleep(5);
+
+$socket->recv($data,1024);
+my $current_time=localtime();
+print "Data received at client socket: $data at time $current_time","\n";
+
+
+
+#sleep(5);
 $socket->close;
